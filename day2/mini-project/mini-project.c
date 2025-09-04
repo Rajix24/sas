@@ -17,16 +17,13 @@
 	    printf ("entere le nomber que tu veux:\n");
 	    printf ("entere 1 pour ajoute un livre\n"); 
 	    printf ("entere 2 Afficher Tous les Livres Disponibles:\n");
-<<<<<<< HEAD
 	    printf ("entere 3 Mettre � Jour la Quantit� d'un Livre: \n");
     	printf ("entere 4 Supprimer un Livre du Stock: \n");
     	printf ("entere 5 Afficher le Nombre Total de Livres en Stock:\n");
-=======
 	    printf ("entere 3 pour recherch sur le livre:\n");
 	    printf ("entere 4 Mettre ? Jour la Quantit? d'un Livre: \n");
     	printf ("entere 5 Supprimer un Livre du Stock: \n");
     	printf ("entere 6 Afficher le Nombre Total de Livres en Stock:\n");
->>>>>>> d90f700 (fini le project)
     	printf ("entere 6 pour exit:\n");
     	printf("\n");
 	    printf ("enter le choix:");
@@ -65,12 +62,7 @@
             printf("enter le titer de liver: ");
             scanf("%s", &nvtitle);
             int nq =0;
-<<<<<<< HEAD
-            printf("enter le titre de liver: ");
-            scanf("%d", &nq);
-=======
 
->>>>>>> d90f700 (fini le project)
             for (int i = 0; i < index ; titres[i]){
                 if(strcmp(nvtitle, titres[i]) == 0){
                   printf("liver troune: \n");
@@ -89,11 +81,8 @@
             //metter:
               int newq;
               int num;
-<<<<<<< HEAD
+
               printf("entrer id de livre (1 - %d) :\n", index);
-=======
-              printf("entrer id de livre (1 -> %d) :\n", index);
->>>>>>> d90f700 (fini le project)
               scanf("%d", &num);
 
               if (num >= 1 && num <= index)
@@ -109,11 +98,8 @@
           case 5:// Supprimer un livre
               int found =0;
                   char sbook[100];
-<<<<<<< HEAD
-                printf("Tapez le titre du livre à supprimer : ");
-=======
-                printf("Tapez le titre du livre � supprimer : ");
->>>>>>> d90f700 (fini le project)
+
+                printf("Tapez le titre du livre supprimer : ");
                 scanf(" %49[^\n]", &sbook);
     
                 for (int i = 0; i < index; i++) {
@@ -126,30 +112,26 @@
                                 quantite[j] = quantite[j + 1];
                             }
                             index--;
-<<<<<<< HEAD
-                            printf("Livre supprimé avec succès.\n");
+                            printf("Livre supprime are seccesse.\n");
                         found = 1;
                         break;
                     }
                 }
                 if (!found) {
-                    printf("Aucun livre trouvé avec ce titre.\n");
+                    printf("Aucun livre trouver avec ce titre.\n");
                 }
                 break;
-=======
-                            printf("Livre supprim� avec succ�s.\n");
+                            printf("Livre supprime avec success.\n");
                             } else {
                             printf("Suppression annul�e.\n");
                         }
                         found = 1;
                         break;
                         if (found != 1){
-                        	printf("Aucun livre trouv� avec ce titre.\n");
+                        	printf("Aucun livre trouver avec ce titre.\n");
 						}
 					}
                         break;
-                    
->>>>>>> d90f700 (fini le project)
             case 6:
             // Nombre total de livres
             int totalQuantity;
@@ -162,8 +144,3 @@
     }while(change != 7);
    return 0;
   }
-
-<<<<<<< HEAD
-  
-=======
->>>>>>> d90f700 (fini le project)

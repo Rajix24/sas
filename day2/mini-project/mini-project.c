@@ -17,14 +17,11 @@
 	    printf ("entere le nomber que tu veux:\n");
 	    printf ("entere 1 pour ajoute un livre\n"); 
 	    printf ("entere 2 Afficher Tous les Livres Disponibles:\n");
-	    printf ("entere 3 Mettre � Jour la Quantit� d'un Livre: \n");
+	    printf ("entere 3 Mettre la Quantitity d'un Livre: \n");
     	printf ("entere 4 Supprimer un Livre du Stock: \n");
-    	printf ("entere 5 Afficher le Nombre Total de Livres en Stock:\n");
-	    printf ("entere 3 pour recherch sur le livre:\n");
-	    printf ("entere 4 Mettre ? Jour la Quantit? d'un Livre: \n");
     	printf ("entere 5 Supprimer un Livre du Stock: \n");
     	printf ("entere 6 Afficher le Nombre Total de Livres en Stock:\n");
-    	printf ("entere 6 pour exit:\n");
+    	printf ("entere 7 pour exit:\n");
     	printf("\n");
 	    printf ("enter le choix:");
 	
@@ -123,7 +120,7 @@
                 break;
                             printf("Livre supprime avec success.\n");
                             } else {
-                            printf("Suppression annul�e.\n");
+                            printf("Suppression annul.\n");
                         }
                         found = 1;
                         break;

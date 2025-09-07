@@ -120,7 +120,7 @@ void showcontact(){//done
            printf("Name: %s\n", &per[i].name);
            printf("Phone Number: %s\n", &per[i].num);
            printf("Email: %s\n", &per[i].email);
-           printf("\n========================\n");
+           
        }
     
 }

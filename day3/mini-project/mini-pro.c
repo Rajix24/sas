@@ -125,7 +125,7 @@ void showcontact(){//done
     
 }
 void serchercontact(){//done
- 
+    int fount = 0;
     printf("Name of the persone: ");
     scanf(" %[^\n]", name);
     getchar();
@@ -136,14 +136,15 @@ void serchercontact(){//done
         {
         printf("\n\033[0;32m== Contact that you look for == \033[0m\n");
         printf("\n");
-        printf("Name: %s\n", per[idx].name);
-        printf("Phone Num: %s\n", per[idx].num);
-        printf("Email: %s\n", per[idx].email);
+        printf("Name: %s\n", per[i].name);
+        printf("Phone Num: %s\n", per[i].num);
+        printf("Email: %s\n", per[i].email);
             idx = i;
-            break;
-        }else{
-            printf ("\n\033[0;31m== Name that you enter not exist ==\033[0m\n");
-        }break;
+            fount++;
+        }
+    }
+    if(fount != 1){
+        printf ("\n\033[0;31m== Name that you enter not exist ==\033[0m\n");
     }
     
 }
@@ -179,7 +180,7 @@ void Editcontact(){//done
         }else{
         
         printf ("\n\033[0;31m== Name that you enter not exist ==\033[0m\n");
-        }break;
+        }
         
     }
     }

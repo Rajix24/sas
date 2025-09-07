@@ -3,7 +3,9 @@
 #define MAX 100
 
 
-int count = 0;
+    int count = 0;
+    char name[100];
+    int idx = 0;
 
 struct contact  
 {
@@ -14,10 +16,12 @@ struct contact
 
 
 
-struct contact per;
+struct contact per[MAX];
 void addcontact();
-
-
+void showcontact();
+void serchercontact();
+void Editcontact();
+void deletcontact();
 
 
 
@@ -31,14 +35,14 @@ int main (){
     {
 
             printf ("\n==================== Menu =====================\n");
-            printf ("entere le nomber que tu veux:\n");
-            printf ("entere 1 pour ajoute un livre\n"); 
-            printf ("entere 2 Afficher Tous les Livres Disponibles:\n");
-            printf ("entere 3 Mettre la Quantitity d'un Livre: \n");
-            printf ("entere 4 Supprimer un Livre du Stock: \n");
-            printf ("entere 5 Supprimer un Livre du Stock: \n");
-            printf ("entere 6 Afficher le Nombre Total de Livres en Stock:\n");
-            printf ("entere 7 pour exit:\n");
+            printf("\n");
+            printf ("entere number that you need:\n");
+            printf ("entere 1 Add contact\n"); 
+            printf ("entere 2 Show all contact:\n");
+            printf ("entere 3 looking for contact: \n");
+            printf ("entere 4 Edit contact: \n");
+            printf ("entere 5 delete contact: \n");
+            printf ("entere 0 pour exit:\n");
             printf ("\n===========================================\n");
             printf("\n");
             printf ("enter le choix:");
@@ -48,10 +52,21 @@ int main (){
 
             switch ((int)choice)
             {
-            case 1:
+            case 1://add contact
                 addcontact();
                 break;
-            
+            case 2 ://show phone num 
+                showcontact();
+                break;
+            case 3://serche contact
+                serchercontact();
+                break;
+            case 4:// edit contact
+                Editcontact();
+                break;
+            case 5://delet contact
+                deletcontact();
+                break;
             default:
                 break;
             }
@@ -62,32 +77,142 @@ int main (){
 
     return 0;
 }
+void addcontact(){//done
 
+        printf ("\n============== add contact ==============\n");
 
-void addcontact(){
 
     if (count >= MAX)
     {
-        printf("you can't enter more");
+        printf("\033[0;31m== You can't enter more ==\033[0m\n");
     }
 
     printf("Enter name: ");
-    fgets(per.name, sizeof(per.name), stdin);
-    per.name[strcspn(per.name, "\n")] = '\0';
+    scanf(" %99[^\n]", per[count].name);
     getchar();
 
-    printf("Enter email: ");
-    fgets(per.email, sizeof(per.email), stdin);
-    per.name[strcspn(per.email, "\n")] = '\0';
+    printf("Enter Phone Number: ");
+    scanf("%s", &per[count].num);
     getchar();
-    
-    
-    printf("Enter phone number: ");
-    fgets(per.num, sizeof(per.num), stdin);
-    per.num[strcspn(per.num, "\n")] = '\0';
-    getchar();
-    
-    printf("error this nuber that you enter not valide!");
 
+    printf("Enter Email: ");
+    scanf("%s", &per[count].email);
+    getchar();
+
+    printf("\n");
+    printf("\033[0;32m== You just add %s ==\033[0m\n", per[count].name);
+    
     count++;
+}
+void showcontact(){//done
+    printf ("\n==================== contact list ==============\n");
+        printf("\n\033[0;32m== Contacts: ==\033[0m\n");
+        printf("\n");
+    if (count == 0 )
+    {
+         printf("\n\033[0;31m No contacte on your local devic\033[0m\n") ;  
+    }
+
+
+    for (int i = 0; i < count; i++)
+       {
+
+           printf("Name: %s\n", &per[i].name);
+           printf("Phone Number: %s\n", &per[i].num);
+           printf("Email: %s\n", &per[i].email);
+       }
+    
+}
+void serchercontact(){//done
+ 
+    printf("Name of the persone: ");
+    scanf(" %[^\n]", name);
+    getchar();
+
+    for (int i = 0; i < count; i++)
+    {
+        if (strcmp(name, per[i].name) == 0)
+        {
+        printf("\n\033[0;32m== Contact that you look for == \033[0m\n");
+        printf("\n");
+        printf("Name: %s\n", per[idx].name);
+        printf("Phone Num: %s\n", per[idx].num);
+        printf("Email: %s\n", per[idx].email);
+            idx = i;
+            break;
+        }else{
+            printf ("\n\033[0;31m== Name that you enter not exist ==\033[0m\n");
+        }break;
+    }
+    
+}
+void Editcontact(){//done
+    
+    printf("Name of the persone: ");
+    scanf(" %[^\n]", name);
+    getchar();
+
+    for (int i = 0; i < count; i++)
+    {
+        if (strcmp(name, per[i].name) == 0)
+        {
+        printf("\n\033[0;32m== Contact: ==\033[0m\n");
+        printf("\n");
+        printf("Name: %s\n", per[idx].name);
+        printf("Phone Num: %s\n", per[idx].num);
+        printf("Email: %s\n", per[idx].email);
+            idx = i;
+
+        printf("\n=============== new info ============\n");
+        printf("\n");
+        printf("Enter new info:\n");
+        printf("new Name:");
+        scanf("%[^\n]", per[idx].name);
+        printf("new Phone Number:");
+        scanf(" %[^\n]", per[idx].num);
+        printf("new Email:");
+        scanf(" %[^\n]", per[idx].email);
+        printf("\n");
+        printf("\033[0;32m== Edit is valide ==\033[0m\n");
+
+        }else{
+        
+        printf ("\n\033[0;31m== Name that you enter not exist ==\033[0m\n");
+        }break;
+        
+    }
+    }
+void deletcontact(){//done
+    char confi;
+    
+    printf("Name of the persone: ");
+    scanf(" %[^\n]", name);
+    getchar();
+
+    for (int i = 0; i < count; i++)
+    {
+        if (strcmp(name, per[i].name) == 0)
+        {
+        printf("your contact : \n");
+        printf("Name: %s\n", per[idx].name);
+        printf("Phone Num: %s\n", per[idx].num);
+        printf("Email: %s\n", per[idx].email);
+            idx = i;
+
+        printf("\n=============== delete contact ============\n");
+            printf("\033[0;31m Are you sure to delete this contact(type 'o' if yes): \033[0m");
+            scanf("%s", &confi);
+            if (confi == 'o' || confi == 'O')
+            {
+                for (int i = 0; i < count; i++) {
+                            strcpy(per[idx].name, per[idx + 1].name);
+                            strcpy(per[idx].num, per[idx + 1].num);
+                            strcpy(per[idx].email, per[idx + 1].email);
+                            count--;
+                            printf("\n\033[0;32m== Contact supprime are seccesse. ==\033[0m\n");
+                            }
+            }else{printf("\n\033[0;31m== supprime are cancel ==\033[0m\n");}
+        
+        }else{printf ("\n\033[0;31m== Name that you enter not exist ==\033[0m\n");}
+    }
 }

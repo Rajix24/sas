@@ -2,6 +2,7 @@
     "files.associations": {
         "stdio.h": "c",
         "ranges": "c",
-        "variant": "c"
+        "variant": "c",
+        "functional": "c"
     }
 }

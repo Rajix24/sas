@@ -1,18 +1,30 @@
 #include <stdio.h>
-#include <string.h>
 
-void linear(int arr[], int size){
-
+int linearSearch(int arr[], int size, int key) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == key) {
+            return i;  
+        }
+    }
+    return -1; 
 }
- 
-int main (){
-    int arr[] ={9,8,6,7,5,3,2,4,1,0};
-    int arr[] ={0,1,2,13,14,15,13,17,18,19};
 
-    int size = 10;
-    int index;
+int main() {
+    int arr[] = {3, 8, 5, 12, 7, 9};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key;
 
+    printf("Enter a number to search: ");
+    scanf("%d", &key);
+    getchar();
 
+    int result = linearSearch(arr, size, key);
+
+    if (result != -1) {
+        printf("Element %d found at index %d\n", key, result);
+    } else {
+        printf("Element %d not found\n", key);
+    }
 
     return 0;
 }

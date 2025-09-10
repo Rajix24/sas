@@ -43,7 +43,7 @@ int main (){
             printf ("entere 4 Edit contact: \n");
             printf ("entere 5 delete contact: \n");
             printf ("entere 0 pour exit:\n");
-            printf ("\n===========================================\n");
+            printf ("\n=============================================\n");
             printf("\n");
             printf ("enter le choix:");
         

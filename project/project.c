@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <time.h>
 
 
 void search();
@@ -8,7 +10,7 @@ void list();
 void add();
 void show();
 void edit();
-void delete();
+void delete_player();
 void statistics();
 
 struct players
@@ -25,10 +27,20 @@ struct players
     
 };
 
-int count = 0;
-struct players player[50];
-
-
+int count = 10;// added
+int next_id = 1;//added
+struct players player[50] = {
+    {"Cristiano", "Ronaldo", 7,  "attaker",    39, 850, "2025-09-11", "active", 1},
+    {"Lionel",    "Messi",   10, "attaker",    38, 820, "2025-09-11", "active", 2},
+    {"Kylian",    "Mbappe",   7, "attaker",    26, 250, "2025-09-11", "active", 3},
+    {"Erling",    "Haaland",  9, "attaker",    25, 200, "2025-09-11", "active", 4},
+    {"Kevin",     "DeBruyne",17, "middle",     34, 120, "2025-09-11", "active", 5},
+    {"Luka",      "Modric",  10, "middle",     39, 95,  "2025-09-11", "active", 6},
+    {"Neymar",    "Junior",  11, "attaker",    33, 450, "2025-09-11", "active",7},
+    {"Virgil",    "VanDijk",  4, "defender",   34, 45,  "2025-09-11", "active", 8},
+    {"Sergio",    "Ramos",    4, "defender",   39, 110, "2025-09-11", "retired",9},
+    {"Manuel",    "Neuer",    1, "goalkeeper", 39, 0,   "2025-09-11", "active", 10}
+};
 int main (){
 
     int choice;
@@ -40,59 +52,57 @@ int main (){
         printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar();
-        system("clear");
+        system("cls");
 
 
         switch(choice){
 
             case 1:
 
-                player[count].ID++;
                 add();//add section
-                player[count].ID++;
                 break;
-                system("clear");
+                system("cls");
             case 2://show section
                 show();
                 break;
-                system("clear");
+                system("cls");
             case 3://edit section
                 edit();
                 break;
-                system("clear");
+                system("cls");
             case 4://delete section
-                delete();
+                delete_player();
                 break;
-                system("clear");
+                system("cls");
             case 5://search section
                 search();
                 break;
-                system("clear");
+                system("cls");
             case 6:
                 statistics();
                  break;
-                system("clear");
+                system("cls");
 
         }
 
         if(choice != 0 ){
         printf("\nAppuyez sur Entree pour continuer...\n");
         getchar();
-        system("clear");
+        system("cls");
         }
 
     } while (choice != 0);
 
     printf("\033[0;32m\n=============== Good By ====================\033[0m\n");
 
-    system("clear");
+    system("cls");
 
     return 0;
     
 }
 void list(){// fuction show to user list of choices //done disign not || ecssecrey not yet
     
-    printf("\n============== list ==============\n");
+    printf("\n\033[0;32m================ list =================\033[0m\n");
     printf("\n");
     printf("Enter Number that you want: \n");
     printf("\n");
@@ -108,16 +118,18 @@ void list(){// fuction show to user list of choices //done disign not || ecssecr
     
 }
 void add(){// fuction that add new player to team //ddesign not donne || ecssecrey not yet 
-    player[count].ID++;
-    int next_id = 1;
     int Number_of_players;
-        player[0].ID = next_id;
+    player[0].ID = next_id;
+    next_id++;
+    count++;
+    int valide;
     if (count >= 50)
     {
         printf("\033[0;31m== You can't enter more ==\033[0m\n");
     }
     
-    printf("\n==== enter how many players you want to engistre =====\n");
+    printf("\n\033[0;32m==== enter how many players you want to engistre =====\033[0m\n");
+    printf("\n");
     printf("Enter here: ");
     scanf("%d", &Number_of_players);
 
@@ -128,55 +140,139 @@ void add(){// fuction that add new player to team //ddesign not donne || ecssecr
         printf("\n\033[0;32m===== player N: %d =====\033[0m\n", i + 1);
         printf("\n");
 
+        do{
+            valide = 0;
         printf("Enter name: ");
         scanf(" %99[^\n]", player[count].name);
         getchar();
-
-        printf("Enter Last Name: ");
-        scanf(" %99[^\n]", &player[count].last_name);
+            for (int i = 0; i < strlen(player[count].name); i++) {
+                if (isdigit(player[count].name[i])) {
+                    valide = 1;
+                    break;
+                }
+            }
+            if(valide == 1) {printf("\033[0;31m      Name is not valide! try again\033[0m\n");}
+        }while(valide == 1); 
+         
+        do{
+            valide = 0;
+        printf("Enter last name: ");
+        scanf(" %99[^\n]", player[count].last_name);
         getchar();
+            for (int i = 0; i < strlen(player[count].last_name); i++) {
+                if (isdigit(player[count].last_name[i])) {
+                    valide = 1;
+                    break;
+                }
+            }
+            if(valide == 1) {printf("\033[0;31m     Last name is not valide! try again\033[0m\n");}
+        }while(valide == 1); 
 
-        printf("Enter t_shirt Number: ");
-        scanf(" %d", &player[count].t_shirt_number);
-        getchar();
+        do{
+            valide = 0;
+            printf("Enter t_shirt Number: ");
+            scanf(" %d", &player[count].t_shirt_number);
+            getchar();
+            if ( player[count].t_shirt_number < 100 && player[count].t_shirt_number > 0 ){ 
+                valide ++;
+            }
+            if(valide == 0) {printf("\033[0;31m     Number is not valide! try again\033[0m\n");}
+        }while( valide == 0);
 
-        printf("Enter position: ");
-        scanf(" %99[^\n]", &player[count].position);
+        do{
+        printf("Enter position(goalkeepe - defender - midfielders- forward): ");
+        scanf(" %99[^\n]", player[count].position);
         getchar();
+            if (strcmp(player[count].position, "goalkeeper") == 0 ||
+            strcmp(player[count].position, "defender") == 0 ||
+            strcmp(player[count].position, "midfielders") == 0 || 
+            strcmp(player[count].position, "forward") == 0) {
+            valide++;
+            }
+            if(valide == 1) {printf("\033[0;31m     Last name is not valide! try again\033[0m\n");}
+        }while(valide == 1);
 
-        printf("Enter age: ");
-        scanf(" %d", &player[count].age);
-        getchar();
+        do{
+            valide = 0;
+            printf("Enter age ( 14 - 45 ): ");
+            scanf(" %d", &player[count].age);
+            getchar();
+            if ( player[count].age < 45 && player[count].age > 14 ){ 
+                valide ++;
+            }
+            if(valide == 0) {printf("\033[0;31m     Last name is not valide! try again\033[0m\n");}
+        }while( valide == 0);
 
-        printf("Enter goals: ");
-        scanf(" %d", &player[count].goals);
-        getchar();
+            do{
+            valide = 0;                
+                printf("Enter goals: ");
+                scanf(" %d", &player[count].goals);
+                getchar();
+            if ( player[count].goals < 1000 && player[count].goals > -1 ){ 
+                valide ++;
+            }
+            if(valide == 0) {printf("\033[0;31m     Last name is not valide! try again\033[0m\n");}
+        }while( valide == 0);
 
-        printf("Enter Registration date : ");
-        scanf(" %99[^\n]", &player[count].registration_date);
-        getchar();
+        do{
+            valide = 0;
+            printf("Enter status (active - reyierd - injured - suspended) : ");
+            scanf(" %99[^\n]", player[count].status);
+            getchar();
+                if (strcmp(player[count].status, "active") == 0 ||
+                    strcmp(player[count].status, "retied") == 0 ||
+                    strcmp(player[count].status, "injured") == 0 || 
+                    strcmp(player[count].status, "suspended") == 0) {
+                valide = 1;
+                }
+                if(valide == 0) {printf("\033[0;31m     Last name is not valide! try again\033[0m\n");}
+        }while(valide == 0);
 
-        printf("Enter status: ");
-        scanf(" %99[^\n]", &player[count].status);
-        getchar();
+        
 
         printf("\n");
         printf("\033[0;32m== You just add %s ==\033[0m\n", player[count].name);
-        
-        count++;
-
-    player[count].ID++;
 
     }
 }
 void show(){// function that show all the players registered
+    
+    time_t T = time(0);
+    struct tm *date = localtime(&T);
+    
+    struct players temp;
+    int choice_sort;
+    do
+    {
 
-
-        printf ("\n============== Players list ==============\n");
+        printf("\n\033[0;32m================ list =================\033[0m\n");//\033[0m
         printf("\n");
+        printf("1.order by name\n");
+        printf("2.order by age: \n");
+        printf("3.order by post: \n");
+        printf("0.go back: \n");
+        printf("\n");
+        printf("\nEnter number: ");
+        scanf("%d", &choice_sort);
+        getchar();
 
-    for (int i = 0; i < count; i++)
-       {
+        switch (choice_sort)
+        {
+        case 1://name
+            for (int i = 0; i < count - 1; i++) {
+                for (int j = i + 1; j < count; j++) {
+                    
+                    if (strcmp(player[i].name, player[j].name) > 0) {
+                        temp = player[i];
+                        player[i] = player[j];
+                        player[j] = temp;
+                     }
+                }
+
+            }
+
+            for (int i = 0; i < count; i++)
+            {
             printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
             printf ("\n");
             printf("Name: %s\n", player[i].name);
@@ -186,13 +282,81 @@ void show(){// function that show all the players registered
             printf("Position: %s\n", player[i].position);
             printf("Age: %d\n", player[i].age);
             printf("Goals: %d\n", player[i].goals);
-            printf("Registration date: %s\n", player[i].registration_date);
+            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
             printf("Status: %s\n", player[i].status);
             printf("\n");
+            printf("\n===============================================================\n");
+            }
+            break;
+            system("cls");
 
-       }
-           printf("\n===================================================\n");
+        case 2://age
+            for (int i = 0; i < count - 1; i++) {
+                for (int j = i + 1; j < count; j++) {
+                    if (player[i].age < player[j].age){
+                        temp = player[i];
+                        player[i] = player[j];
+                        player[j] = temp;
+                     }
+                }
 
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+            printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
+            printf ("\n");
+            printf("Name: %s\n", player[i].name);
+            printf("Last name: %s\n", player[i].last_name);
+            printf("Player ID : %d\n", player[i].ID);
+            printf("T_shirt number: %d\n", player[i].t_shirt_number);
+            printf("Position: %s\n", player[i].position);
+            printf("Age: %d\n", player[i].age);
+            printf("Goals: %d\n", player[i].goals);
+            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
+            printf("Status: %s\n", player[i].status);
+            printf("\n");
+            printf("\n========================================================\n");
+            }
+            break;
+            system("cls");
+
+
+        case 3://position
+                        struct players temp;
+            for (int i = 0; i < count - 1; i++) {
+                for (int j = i + 1; j < count; j++) {
+                    
+                    if (strcmp(player[i].position, player[j].position) > 0) {
+                        temp = player[i];
+                        player[i] = player[j];
+                        player[j] = temp;
+                     }
+                }
+
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+            printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
+            printf ("\n");
+            printf("Name: %s\n", player[i].name);
+            printf("Last name: %s\n", player[i].last_name);
+            printf("Player ID : %d\n", player[i].ID);
+            printf("T_shirt number: %d\n", player[i].t_shirt_number);
+            printf("Position: %s\n", player[i].position);
+            printf("Age: %d\n", player[i].age);
+            printf("Goals: %d\n", player[i].goals);
+            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
+            printf("Status: %s\n", player[i].status);
+            printf("\n");
+            printf("\n============================================================\n");
+            }
+            break;
+            system("cls");
+        }
+        
+    }while(choice_sort != 0);
 }
 void edit(){// function that edit info of players
     int Edit_choice;
@@ -231,27 +395,27 @@ void edit(){// function that edit info of players
                 scanf(" %[^\n]", new_name);
                     strcpy(player[i].name, new_name);
                 break;
-                system("clear");
+                system("cls");
             case 2:
                 printf("Enter new last name: \n");
                 scanf(" %[^\n]", new_last_name);
                         strcpy(player[i].last_name, new_last_name);
                 break;
-                system("clear");
+                system("cls");
             case 3:
                         printf("Enter new age:");
                         scanf("%d", &new_age);
                         getchar();
                         player[i].age = new_age;
                 break;
-                system("clear");
+                system("cls");
             case 4:
                         printf("Enter new Goals Number:");
                         scanf("%d", &new_goals_numbers);
                         player[i].goals= new_goals_numbers;
                         getchar();
                 break;
-                system("clear");
+                system("cls");
             default :
                 printf("\n== number that you Enter is not on the list try again ==\n");
             }
@@ -340,77 +504,12 @@ void search() {// fuction that search for players
             break;
         }
 }
-void delete(){//function that delete element
+void delete_player(){//function that delete element
 
     char confi;
     int found = 0;
-    char name[100];
-    int choice_search;
     int search_id;
 
-    printf ("\n=== 1. If you want to search by name  ===\n");
-    printf ("\n=== 2. If Do you what search by ID ===\n");
-    scanf("%d", &choice_search);
-
-    switch (choice_search)
-    {
-        case 1:
-
-            printf("Name of the player: ");
-            scanf(" %[^\n]", name);
-            getchar();
-
-        
-        
-            for (int i = 0; i < count; i++)
-            {
-                if (strcmp(name, player[i].name) == 0)
-                {
-
-                printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
-                printf ("\n");
-                printf("Name: %s\n", player[i].name);
-                printf("Last name: %s\n", player[i].last_name);
-                printf("Player ID : %d\n", player[i].ID);
-                printf("T_shirt number: %d\n", player[i].t_shirt_number);
-                printf("Position: %s\n", player[i].position);
-                printf("Age: %d\n", player[i].age);
-                printf("Goals: %d\n", player[i].goals);
-                printf("Registration date: %s\n", player[i].registration_date);
-                printf("Status: %s\n", player[i].status);
-                printf("\n");
-
-                printf("\n=============== delete contact ============\n");
-                    printf("\033[0;31m Are you sure to delete this contact(type 'o' if yes): \033[0m");
-                    scanf("%s", &confi);
-                    if (confi == 'o' || confi == 'O')
-                    {
-                        for (int j = i; j < count; j++) {
-                                    strcpy(player[j].name, player[j + 1].name);
-                                    strcpy(player[j].last_name, player[j + 1].last_name);
-                                    strcpy(player[j].position, player[j + 1].position);
-                                    strcpy(player[j].registration_date, player[j + 1].registration_date);
-                                    strcpy(player[j].status, player[j + 1].status);
-                                    //player[i].ID = '\0';
-                                    player[i].t_shirt_number = player[j + 1].t_shirt_number;
-                                    player[i].age = player[j+1].age;
-                                    player[i].goals = player[j + 1].goals;
-                                    count--;
-                                    found ++;
-                                    printf("\n\033[0;32m== Contact supprime are seccesse. ==\033[0m\n");
-                                    }
-                    }else{printf("\n\033[0;31m== supprime are cancel ==\033[0m\n");}
-                }
-                
-                if (found == 0)
-                {
-                    printf ("\n\033[0;31m== Name that you enter not exist ==\033[0m\n");
-                }
-        }
-            
-        break;
-    case 2: 
-    
             printf("Player ID : ");
             scanf(" %d", &search_id);
             getchar();
@@ -433,32 +532,28 @@ void delete(){//function that delete element
                     printf("\n===================================================\n");
                     printf("\n=============== delete contact ============\n");
                     printf("\033[0;31m Are you sure to delete this contact(type 'o' if yes): \033[0m");
-                    scanf("%s", &confi);
+                    scanf("%c", &confi);
                     if (confi == 'o' || confi == 'O'){
-                        for (int j = 1; j < count - 1; j++) {
+                        for (int j = i; j < count - 1; j++) {
+                            player[j] = player[j + 1];
+                        }
+                                count--;
+                               
+                        printf("\n\033[0;32m== Contact supprime are seccesse. ==\033[0m\n");
 
-                                    player[j] = player[j+1];
-                                    count--;
-                                    found ++;
-                                    printf("\n\033[0;32m== Contact supprime are seccesse. ==\033[0m\n");}
                     }else
                         {printf("\n\033[0;31m== supprime are cancel ==\033[0m\n");}
+                        break;
+                         found  = 1;
                 }
-                                    
+                  
                 if (found == 0)
                 {
                     printf ("\n\033[0;31m== ID that you enter not exist ==\033[0m\n");
                 }
             }
-            break;
-    default:
-            printf("\n=== Number that you enter is not in the list ===\n");
-        break;
     }
-        player[count].ID++;
-
-}
-void statistics(){
+void statistics(){//fuction is done but it need design
     //total of players
     // moyenne age age++, /count
     //player that has more goals
@@ -543,25 +638,21 @@ int sta_choice;
             break;
 
         case 5:
-        for (int i = 0; i < count; i++)
-        {
-            if (player[i].age > 18)
-                {
-                    printf("Olders players are: ");
-                    printf("Name: %s\n", player[i].name);
-                }else if (player[i].age < 18){
-                    printf("yeungest players are: ");
-                    printf("Name: %s\n", player[i].name);
+             max_goals = player[0].goals;
+            for (int i = 0; i < count; i++) {
+                if (player[i].goals > max_goals) {
+                    max_goals = player[i].goals;
+                    printf("player that has must goals is: %s\n", player[i].name);
                 }
-        }
+            }
         default:
+            printf("\nchoice that you enter is wrong try again\n");
             break;
         }
 
     } while (sta_choice !=0);
     
 }
-
 
 
 

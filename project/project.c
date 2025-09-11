@@ -526,7 +526,6 @@ void delete_player(){//function that delete element
                     printf("Position: %s\n", player[i].position);
                     printf("Age: %d\n", player[i].age);
                     printf("Goals: %d\n", player[i].goals);
-                    printf("Registration date: %s\n", player[i].registration_date);
                     printf("Status: %s\n", player[i].status);
                     printf("\n");
                     printf("\n===================================================\n");
@@ -563,6 +562,7 @@ int sta_choice;
 
     do
     {
+        int total_age = 0;
         printf("\n=============== list statisctics ===================\n");
         printf("\n");
         printf("1. Number of player in total\n");
@@ -579,7 +579,6 @@ int sta_choice;
         switch (sta_choice)
         {
         case 1:
-            int total_age = 0;
             printf("\n=== Total of players ===\n");
             printf("\n");
             printf("Total of players is: %d", count);
@@ -592,13 +591,16 @@ int sta_choice;
             }
             printf("\n");
             break;
+            system("cls");
         case 2:
             for (int i = 0; i < count; i++)
             {
                     total_age  +=  player[i].age;
             }
                 int average_age = 0; 
-                average_age = total_age / count; 
+                        if (count > 0) {  
+                        average_age = total_age / count; 
+                    }
                 printf("\n=============== average age =====================\n");
                 printf("\n");
                 printf("average age of players is %d \n", average_age);
@@ -606,6 +608,8 @@ int sta_choice;
 
                 printf("\n=================================================\n");
                 break;
+            system("cls");
+
         case 3:
             int score;
             printf("\n===================== score ======================\n");
@@ -622,7 +626,7 @@ int sta_choice;
                 }
             }
             break;
-            
+            system("cls");
         case 4:
                 int max_goals = player[0].goals;
                 for (int i = 0; i < count; i++)
@@ -636,7 +640,7 @@ int sta_choice;
                     }
                 }
             break;
-
+            system("cls");
         case 5:
              max_goals = player[0].goals;
             for (int i = 0; i < count; i++) {

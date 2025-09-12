@@ -28,7 +28,7 @@ struct players
 };
 
 int count = 10;// added
-int next_id = 1;//added
+int next_id = 11;//added
 struct players player[50] = {
     {"Cristiano", "Ronaldo", 7,  "attaker",    39, 850, "2025-09-11", "active", 1},
     {"Lionel",    "Messi",   10, "attaker",    38, 820, "2025-09-11", "active", 2},
@@ -119,14 +119,13 @@ void list(){// fuction show to user list of choices //done disign not || ecssecr
 }
 void add(){// fuction that add new player to team //ddesign not donne || ecssecrey not yet 
     int Number_of_players;
-    player[0].ID = next_id;
-    next_id++;
-    count++;
     int valide;
     if (count >= 50)
     {
         printf("\033[0;31m== You can't enter more ==\033[0m\n");
     }
+    player[count].ID = next_id;
+    next_id++;
     
     printf("\n\033[0;32m==== enter how many players you want to engistre =====\033[0m\n");
     printf("\n");
@@ -205,7 +204,7 @@ void add(){// fuction that add new player to team //ddesign not donne || ecssecr
 
             do{
             valide = 0;                
-                printf("Enter goals: ");
+                printf("Enter goals (Min: 0 | Max: 1000): ");
                 scanf(" %d", &player[count].goals);
                 getchar();
             if ( player[count].goals < 1000 && player[count].goals > -1 ){ 
@@ -227,9 +226,7 @@ void add(){// fuction that add new player to team //ddesign not donne || ecssecr
                 }
                 if(valide == 0) {printf("\033[0;31m     Last name is not valide! try again\033[0m\n");}
         }while(valide == 0);
-
-        
-
+        count++;
         printf("\n");
         printf("\033[0;32m== You just add %s ==\033[0m\n", player[count].name);
 
@@ -374,7 +371,7 @@ void edit(){// function that edit info of players
      printf("Enter name: ");
      scanf(" %[^\n]", found_name);
      for (int i = 0; i < count; i++) {
-          if (strcmp(player[i].name, found_name) == 0) {
+          if (strcasecmp(player[i].name, found_name) == 0) {
         do
         {
         printf("=== What you want to change ===\n");
@@ -442,9 +439,11 @@ void search() {// fuction that search for players
     int choice_search;
     int searchID;
 
+    printf ("\n\033[0;32m===================== search ====================\033[0m\n");
+    printf("\n");
     printf ("\n=== 1. If you want to search by name  ===\n");
     printf ("\n=== 2. If Do you what search by ID ===\n");
-    printf("Enter here: ");
+    printf("\nEnter here: ");
     scanf("%d", &choice_search);
 
         switch(choice_search){
@@ -455,7 +454,7 @@ void search() {// fuction that search for players
                 scanf(" %[^\n]", found_player);
                 getchar();
                 for (int i = 0; i < count; i++) {
-                    if (strcmp(player[i].name, found_player) == 0) {
+                    if (strcasecmp(player[i].name, found_player) == 0) {
                         printf("\n\033[0;32m=============== Player: %s ===============\033[0m\n", player[i].name);
                         printf("Name: %s\n", player[i].name);
                         printf("Last name: %s\n", player[i].last_name);
@@ -542,15 +541,13 @@ void delete_player(){//function that delete element
 
                     }else
                         {printf("\n\033[0;31m== supprime are cancel ==\033[0m\n");}
-                        break;
-                         found  = 1;
+                         found ++;
                 }
-                  
-                if (found == 0)
+            }
+            if (found == 0)
                 {
                     printf ("\n\033[0;31m== ID that you enter not exist ==\033[0m\n");
                 }
-            }
     }
 void statistics(){//fuction is done but it need design
     //total of players
@@ -563,11 +560,11 @@ int sta_choice;
     do
     {
         int total_age = 0;
-        printf("\n=============== list statisctics ===================\n");
+        printf("\n\033[0;32m=============== list statisctics ===================\033[0m\n");
         printf("\n");
         printf("1. Number of player in total\n");
         printf("2. Moyenne of players\n");
-        printf("3. player that has most Goals\n");
+        printf("3. Players who have scored goals\n");
         printf("4. Show top scorer\n");
         printf("5. Show youngest and oldest player\n");
         printf("0. exist\n");
@@ -601,7 +598,7 @@ int sta_choice;
                         if (count > 0) {  
                         average_age = total_age / count; 
                     }
-                printf("\n=============== average age =====================\n");
+                printf("\n\033[0;32m=============== average age =====================\033[0m\n");
                 printf("\n");
                 printf("average age of players is %d \n", average_age);
                 printf("\n");
@@ -611,46 +608,73 @@ int sta_choice;
             system("cls");
 
         case 3:
-            int score;
-            printf("\n===================== score ======================\n");
+            int score = 0;
+            printf("\n\033[0;32m========================== score =========================\033[0m\n");
             printf("\n");
 
             printf("Enter score: ");
             scanf("%d", &score);
+            printf("\n");
             for (int i = 0; i < count; i++)
             {
                 if (score < player[i].goals){
-                    printf("Name:     %s      ||     %d         \n", player[i].name, player[i].goals);
-                }else{
-                    printf("\n=== NO player has reach that score yet ===\n");
+                    printf("Name:     %s    || Goals:    %d      \n", player[i].name, player[i].goals);
                 }
+                score ++;
             }
+            if (score == 0)
+            {
+                printf("\n\033[0;31m=== NO player has reach that score yet ===\033[0m\n");   
+            }
+            
             break;
             system("cls");
         case 4:
-                int max_goals = player[0].goals;
+                int max_goals = 0;
                 for (int i = 0; i < count; i++)
                 {
                     if (player[i].goals > max_goals)
                     {
                         max_goals = player[i].goals;
-                        printf("player that has must goals is: %s\n", player[i].name);
-                        printf("his score is: %d\n", player[i].goals);
-                        printf("\n");
                     }
                 }
+                    printf("\n\033[0;32m========================== Top scorer =========================\033[0m\n");
+                    printf("\n");
+                    printf("player that has must goals is: %s\n", player[max_goals].name);
+                    printf("his score is: %d\n", player[max_goals].goals);
+                    printf("\n");
             break;
             system("cls");
+
         case 5:
-             max_goals = player[0].goals;
+        
+            int youngest_max = 0;
+            int oldest_max = 0;
             for (int i = 0; i < count; i++) {
-                if (player[i].goals > max_goals) {
-                    max_goals = player[i].goals;
-                    printf("player that has must goals is: %s\n", player[i].name);
+                if (player[i].age > player[oldest_max].age){
+                    oldest_max = i;
                 }
+                if (player[i].age < player[youngest_max].age)
+                {
+                    youngest_max = i;
+                }
+                
             }
+            printf("\n\033[0;32m===================== Oldests Players ==========================\033[0m");
+            printf("\n");
+            printf("player that has must goals is: %s\n", player[oldest_max].name);
+            printf("player has score of  %d\n", player[oldest_max].age);
+            printf("\n");
+            printf("\n\033[0;32m===================== Youngest Players ==========================\033[0m");
+            printf("\n");
+            printf("player that has must goals is: %s\n", player[youngest_max].name);
+            printf("player has score of  %d\n", player[youngest_max].age);
+            printf("\n");
+            break;
+            system("cls");
+
         default:
-            printf("\nchoice that you enter is wrong try again\n");
+            printf("\n\033[0;31m=== choice that you enter is wrong try again ===\n");
             break;
         }
 

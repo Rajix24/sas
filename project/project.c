@@ -30,13 +30,13 @@ struct players
 int count = 10;// added
 int next_id = 11;//added
 struct players player[50] = {
-    {"Cristiano", "Ronaldo", 7,  "attaker",    39, 850, "2025-09-11", "active", 1},
-    {"Lionel",    "Messi",   10, "attaker",    38, 820, "2025-09-11", "active", 2},
-    {"Kylian",    "Mbappe",   7, "attaker",    26, 250, "2025-09-11", "active", 3},
-    {"Erling",    "Haaland",  9, "attaker",    25, 200, "2025-09-11", "active", 4},
-    {"Kevin",     "DeBruyne",17, "middle",     34, 120, "2025-09-11", "active", 5},
-    {"Luka",      "Modric",  10, "middle",     39, 95,  "2025-09-11", "active", 6},
-    {"Neymar",    "Junior",  11, "attaker",    33, 450, "2025-09-11", "active",7},
+    {"Cristiano", "Ronaldo", 7,  "forward",    39, 850, "2025-09-11", "active", 1},
+    {"Lionel",    "Messi",   10, "forward",    38, 820, "2025-09-11", "active", 2},
+    {"Kylian",    "Mbappe",   7, "forward",    26, 250, "2025-09-11", "active", 3},
+    {"Erling",    "Haaland",  9, "forward",    25, 200, "2025-09-11", "active", 4},
+    {"Kevin",     "DeBruyne",17, "midfielder",     34, 120, "2025-09-11", "active", 5},
+    {"Luka",      "Modric",  10, "midfielder",     39, 95,  "2025-09-11", "active", 6},
+    {"Neymar",    "Junior",  11, "forward",    33, 450, "2025-09-11", "active",7},
     {"Virgil",    "VanDijk",  4, "defender",   34, 45,  "2025-09-11", "active", 8},
     {"Sergio",    "Ramos",    4, "defender",   39, 110, "2025-09-11", "retired",9},
     {"Manuel",    "Neuer",    1, "goalkeeper", 39, 0,   "2025-09-11", "active", 10}
@@ -179,12 +179,12 @@ void add(){// fuction that add new player to team //ddesign not donne || ecssecr
         }while( valide == 0);
 
         do{
-        printf("Enter position(goalkeepe - defender - midfielders- forward): ");
+        printf("Enter position(goalkeepe - defender - midfielder- forward): ");
         scanf(" %99[^\n]", player[count].position);
         getchar();
             if (strcmp(player[count].position, "goalkeeper") == 0 ||
             strcmp(player[count].position, "defender") == 0 ||
-            strcmp(player[count].position, "midfielders") == 0 || 
+            strcmp(player[count].position, "midfielder") == 0 || 
             strcmp(player[count].position, "forward") == 0) {
             valide++;
             }
@@ -320,35 +320,112 @@ void show(){// function that show all the players registered
 
 
         case 3://position
-                        struct players temp;
-            for (int i = 0; i < count - 1; i++) {
-                for (int j = i + 1; j < count; j++) {
-                    
-                    if (strcmp(player[i].position, player[j].position) > 0) {
-                        temp = player[i];
-                        player[i] = player[j];
-                        player[j] = temp;
-                     }
-                }
-
-            }
-
-            for (int i = 0; i < count; i++)
-            {
-            printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
-            printf ("\n");
-            printf("Name: %s\n", player[i].name);
-            printf("Last name: %s\n", player[i].last_name);
-            printf("Player ID : %d\n", player[i].ID);
-            printf("T_shirt number: %d\n", player[i].t_shirt_number);
-            printf("Position: %s\n", player[i].position);
-            printf("Age: %d\n", player[i].age);
-            printf("Goals: %d\n", player[i].goals);
-            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
-            printf("Status: %s\n", player[i].status);
-            printf("\n");
-            printf("\n============================================================\n");
-            }
+            int choice_post = 0;
+                    do{
+                        printf("\n");
+                        printf("\n\033[0;32m=================== Post List ==================\033[0m\n");
+                        printf("\n");
+                        printf("1. Forward\n");
+                        printf("2. Midfielder\n");
+                        printf("3. Defender\n");
+                        printf("4. Goalkeeper\n");
+                        printf("0. exit\n");
+                        printf("\n");
+                        printf("Enter your choice: ");
+                        scanf("%d", &choice_post);
+                        system("cls");
+                        switch (choice_post)
+                            {
+                            case 1:
+                                    for (int i = 0; i < count; i++)
+                                    {               
+                                        if (strcmp (player[i].position, "forward") == 0)
+                                        {
+                                            printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
+                                            printf ("\n");
+                                            printf("Name: %s\n", player[i].name);
+                                            printf("Last name: %s\n", player[i].last_name);
+                                            printf("Player ID : %d\n", player[i].ID);
+                                            printf("T_shirt number: %d\n", player[i].t_shirt_number);
+                                            printf("Position: %s\n", player[i].position);
+                                            printf("Age: %d\n", player[i].age);
+                                            printf("Goals: %d\n", player[i].goals);
+                                            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
+                                            printf("Status: %s\n", player[i].status);
+                                            printf("\n");
+                                        } 
+                                    }                   
+                                    
+                                break;
+                                system("cls");
+                            case 2:
+                                    for (int i = 0; i < count; i++)
+                                    {               
+                                        if (strcmp (player[i].position, "midfielder") == 0)
+                                        {
+                                            printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
+                                            printf ("\n");
+                                            printf("Name: %s\n", player[i].name);
+                                            printf("Last name: %s\n", player[i].last_name);
+                                            printf("Player ID : %d\n", player[i].ID);
+                                            printf("T_shirt number: %d\n", player[i].t_shirt_number);
+                                            printf("Position: %s\n", player[i].position);
+                                            printf("Age: %d\n", player[i].age);
+                                            printf("Goals: %d\n", player[i].goals);
+                                            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
+                                            printf("Status: %s\n", player[i].status);
+                                            printf("\n");
+                                        } 
+                                    }                   
+                                    
+                                break;
+                                system("cls");
+                                    break;
+                                system("cls");
+                            case 3:
+                                for (int i = 0; i < count; i++)
+                                    {               
+                                        if (strcmp (player[i].position, "defender") == 0)
+                                        {
+                                            printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
+                                            printf ("\n");
+                                            printf("Name: %s\n", player[i].name);
+                                            printf("Last name: %s\n", player[i].last_name);
+                                            printf("Player ID : %d\n", player[i].ID);
+                                            printf("T_shirt number: %d\n", player[i].t_shirt_number);
+                                            printf("Position: %s\n", player[i].position);
+                                            printf("Age: %d\n", player[i].age);
+                                            printf("Goals: %d\n", player[i].goals);
+                                            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
+                                            printf("Status: %s\n", player[i].status);
+                                            printf("\n");
+                                        } 
+                                    }
+                                    break;
+                                system("cls"); 
+                            case 4:
+                                for (int i = 0; i < count; i++)
+                                    {               
+                                        if (strcmp (player[i].position, "goalkeeper") == 0)
+                                        {
+                                            printf ("\n\033[0;32m=============== players %d ===============\033[0m\n", i + 1);
+                                            printf ("\n");
+                                            printf("Name: %s\n", player[i].name);
+                                            printf("Last name: %s\n", player[i].last_name);
+                                            printf("Player ID : %d\n", player[i].ID);
+                                            printf("T_shirt number: %d\n", player[i].t_shirt_number);
+                                            printf("Position: %s\n", player[i].position);
+                                            printf("Age: %d\n", player[i].age);
+                                            printf("Goals: %d\n", player[i].goals);
+                                            printf("registered in: %d/%d/%d\n",date->tm_mday, date->tm_mon+1, date->tm_year+1900);
+                                            printf("Status: %s\n", player[i].status);
+                                            printf("\n");
+                                        } 
+                                    }
+                                    break;
+                                system("cls");
+                            }
+                        }while(choice_post != 0);
             break;
             system("cls");
         }
@@ -572,6 +649,7 @@ int sta_choice;
 
         printf("Enter votre choice: ");
         scanf("%d", &sta_choice);
+        system("cls");
 
         switch (sta_choice)
         {
@@ -631,17 +709,19 @@ int sta_choice;
             system("cls");
         case 4:
                 int max_goals = 0;
+                int top_player = 0;
                 for (int i = 0; i < count; i++)
                 {
                     if (player[i].goals > max_goals)
                     {
                         max_goals = player[i].goals;
+                        top_player = i;
                     }
                 }
                     printf("\n\033[0;32m========================== Top scorer =========================\033[0m\n");
                     printf("\n");
-                    printf("player that has must goals is: %s\n", player[max_goals].name);
-                    printf("his score is: %d\n", player[max_goals].goals);
+                    printf("player that has must goals is: %s\n", player[top_player].name);
+                    printf("his score is: %d\n", player[top_player].goals);
                     printf("\n");
             break;
             system("cls");
@@ -660,12 +740,12 @@ int sta_choice;
                 }
                 
             }
-            printf("\n\033[0;32m===================== Oldests Players ==========================\033[0m");
+            printf("\n\033[0;32m===================== Oldests Players ==========================\n\033[0m");
             printf("\n");
             printf("player that has must goals is: %s\n", player[oldest_max].name);
             printf("player has score of  %d\n", player[oldest_max].age);
             printf("\n");
-            printf("\n\033[0;32m===================== Youngest Players ==========================\033[0m");
+            printf("\n\033[0;32m===================== Youngest Players ==========================\n\033[0m");
             printf("\n");
             printf("player that has must goals is: %s\n", player[youngest_max].name);
             printf("player has score of  %d\n", player[youngest_max].age);
